@@ -2,6 +2,33 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Search = (props) => {
+  const handleDisplay = () => {
+    if (props.filtered.length === 1) {
+      return (
+        <div>
+          {props.filtered.map(country =>
+            <div key={country.name}>
+              <h2>{country.name}</h2>
+              <div>capital {country.capital}</div>
+              <div>population {country.population}</div>
+              <h2>languages</h2>
+              <ul>
+                {country.languages.map(language => <li key="language.name">{language.name}</li>)}
+              </ul>
+              <img src={country.flag} width="100" alt="flag"></img>
+            </div>
+          )}
+        </div>
+      )
+    } else {
+      return (
+        <ul>
+          {props.filtered.map(country => <li key={country.name}>{country.name}</li>)}
+        </ul>
+      )
+    }
+  }
+
   return (
     <form>
       <div>
@@ -10,17 +37,11 @@ const Search = (props) => {
           value={props.filter}
           onChange={props.handleFilterChange}
         />
-        <ul>
-          {props.filtered.map(country => <li key={country.name}>{country.name}</li>)}
-        </ul>
+        <div>
+          {handleDisplay()}
+        </div>
       </div>
     </form>
-  )
-}
-
-const DisplayCountry = (props) => {
-  return (
-    <h2>{props.country}</h2>
   )
 }
 
