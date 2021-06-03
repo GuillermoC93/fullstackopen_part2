@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const SingleCountry = ({ filtered }) => {
+  return (
+    <div>
+      {filtered.map(country =>
+        <div key={country.name}>
+          <h2>{country.name}</h2>
+          <div>capital {country.capital}</div>
+          <div>population {country.population}</div>
+          <h2>languages</h2>
+          <ul>
+            {country.languages.map(language => <li key={language.name}>{language.name}</li>)}
+          </ul>
+          <img src={country.flag} width="100" alt="flag"></img>
+        </div>
+      )}
+    </div>
+  )
+}
+
 const Search = (props) => {
   const handleDisplay = () => {
     if (props.filtered.length === 1) {
       return (
-        <div>
-          {props.filtered.map(country =>
-            <div key={country.name}>
-              <h2>{country.name}</h2>
-              <div>capital {country.capital}</div>
-              <div>population {country.population}</div>
-              <h2>languages</h2>
-              <ul>
-                {country.languages.map(language => <li key="language.name">{language.name}</li>)}
-              </ul>
-              <img src={country.flag} width="100" alt="flag"></img>
-            </div>
-          )}
-        </div>
+        <SingleCountry filtered={props.filtered} />
       )
     } else {
       return (
